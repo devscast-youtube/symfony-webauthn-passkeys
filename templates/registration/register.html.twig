@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="relative py-16">
+        <div class="container relative m-auto px-6 text-gray-500 md:px-12 xl:px-40">
+            <div class="m-auto md:w-6/12 lg:w-6/12 xl:w-5/12">
+                <div class="rounded-3xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-2xl shadow-gray-600/10 dark:shadow-none">
+                    <div class="p-8 py-12 sm:p-16">
+                        <div class="space-y-4">
+                            <h2 class="mb-8 text-2xl font-bold text-gray-800 dark:text-white">
+                                Register<br />
+                                Devscast Community.
+                            </h2>
+                        </div>
+                        <div class="relative py-4">
+                            {{ form_errors(registrationForm) }}
+
+                            {{ form_start(registrationForm, {
+                                attr: {
+                                    ...stimulus_controller('@web-auth/webauthn-stimulus', {
+                                        useBrowserAutofill: true,
+                                        usernameField: registrationForm.email.vars.full_name,
+                                        displayNameField: registrationForm.email.vars.full_name,
+                                        creationSuccessRedirectUri: path('app_main'),
+                                        creationResultUrl: path('webauthn.controller.security.main.creation.result'),
+                                        creationOptionsUrl: path('webauthn.controller.security.main.creation.options'),
+                                    }).toArray
+                                }
+                            }) }}
+                                {{ form_row(registrationForm.email) }}
+                                {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
+
+                                <button type="submit" class="group w-full relative flex h-11 items-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-white dark:before:bg-gray-700 dark:before:border-gray-600 before:border before:border-gray-200 before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 disabled:before:bg-gray-300 disabled:before:scale-100">
+                                    <span class="w-full relative flex justify-center items-center gap-3 text-base font-medium text-gray-600 dark:text-gray-200">Register</span>
+                                </button>
+                                <button {{ stimulus_action('@web-auth/webauthn-stimulus', 'signup') }} type="submit" class="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95">
+                                    <span class="relative text-base font-semibold text-white dark:text-dark">Register with passkey</span>
+                                </button>
+                            {{ form_end(registrationForm) }}
+                        </div>
+
+                        <div class="space-y-4 text-center text-gray-600 dark:text-gray-400 sm:-mb-8">
+                            <p class="text-xs">
+                                By proceeding, you agree to our <a href="#" class="underline">Terms of Use</a> and confirm you have read our
+                                <a href="#" class="underline">Privacy and Cookie Statement</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -43,7 +43,9 @@
         "symfony/web-link": "7.1.*",
         "symfony/yaml": "7.1.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "web-auth/webauthn-stimulus": "^5.0",
+        "web-auth/webauthn-symfony-bundle": "^5.0"
     },
     "config": {
         "allow-plugins": {

@@ -1,0 +1,15 @@
+webauthn:
+    credential_repository: 'App\Repository\WebauthnCredentialSourceRepository'
+    user_repository: 'App\Repository\WebauthnCredentialUserRepository'
+    creation_profiles:
+        default:
+            rp:
+                name: '%env(RELYING_PARTY_NAME)%'
+                id: '%env(RELYING_PARTY_ID)%'
+            extensions:
+                uvm: true
+    request_profiles:
+        default:
+            rp_id: '%env(RELYING_PARTY_ID)%'
+            extensions:
+                uvm: true
